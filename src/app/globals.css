@@ -1,15 +1,34 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-regular.woff2")
+    format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-semibold.woff2")
+    format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-pretendard: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui,
+    "Segoe UI", sans-serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-pretendard);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,8 +38,43 @@
   }
 }
 
+html,
 body {
-  background: var(--background);
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-pretendard);
+  background-color: #ffffff;
+  background-image: url("/background.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-rise-in {
+  animation: riseIn 0.5s ease-out forwards;
+}
+
+.fl-textfield {
+  color: #363a3b;
+}
+
+.fl-textfield::placeholder {
+  color: #35c7f9;
+  opacity: 1;
 }
