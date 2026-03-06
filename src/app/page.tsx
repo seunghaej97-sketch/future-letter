@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { supabase } from "@/lib/supabase";
 
@@ -19,6 +19,7 @@ export default function Home() {
   const [isPlaneVisible, setIsPlaneVisible] = useState(false);
   const [isPlaneFlying, setIsPlaneFlying] = useState(false);
   const [isShareToastVisible, setIsShareToastVisible] = useState(false);
+  const letterFormRef = useRef<HTMLFormElement | null>(null);
 
   const isEmailValid =
     email.length > 0 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -26,13 +27,19 @@ export default function Home() {
   const isMessageValid = message.trim().length > 0;
 
   return (
-    <main className="flex min-h-screen w-full items-center justify-center px-6 py-10">
+    <main
+      className={`flex min-h-screen w-full px-6 py-10 ${
+        step === "letter"
+          ? "items-end justify-center pb-72"
+          : "items-center justify-center"
+      }`}
+    >
       <div className="mx-auto flex w-full max-w-[960px] flex-col items-center justify-between gap-16">
         {/* 1단계: 랜딩 화면 */}
         {step === "landing" && (
           <>
-            <section className="flex w-full flex-1 flex-col items-center">
-              <div className="flex flex-col items-center gap-6">
+            <section className="flex w-full flex-1 flex-col items-center overflow-visible">
+              <div className="flex flex-col items-center gap-6 overflow-visible">
                 {/* 비행기 아이콘 */}
                 <div
                   className="relative h-[23px] w-[31px] animate-rise-in opacity-0"
@@ -152,9 +159,9 @@ export default function Home() {
 
         {/* 3단계: 편지 작성 */}
         {step === "letter" && (
-          <section className="flex w-full flex-1 flex-col items-center">
+          <section className="flex w-full flex-1 flex-col items-center justify-start pt-0">
             <div
-              className="relative flex w-full max-w-[360px] flex-col items-center gap-8 animate-rise-in opacity-0"
+              className="relative -mt-8 flex w-full max-w-[360px] flex-col items-center gap-6 animate-rise-in opacity-0 sm:-mt-10"
               style={{ animationDelay: "0ms" }}
             >
               <motion.p
@@ -169,12 +176,13 @@ export default function Home() {
                     ? { y: 8, opacity: 0 }
                     : { y: 0, opacity: 1 }
                 }
-                transition={{ duration: 0.8, ease: "easeOut" }}
+                transition={{ duration: 1.2, ease: "easeOut" }}
               >
                 1년 후 나에게
               </motion.p>
 
               <motion.form
+                ref={letterFormRef}
                 className="z-10 flex w-full flex-col items-center gap-4"
                 onSubmit={async (event) => {
                   event.preventDefault();
@@ -265,7 +273,7 @@ export default function Home() {
                   value={message}
                   onChange={(event) => setMessage(event.target.value)}
                   placeholder="미래의 나에게 편지를 적어보세요."
-                  className="fl-textfield h-[320px] w-full resize-none rounded-[18px] bg-[#A5E8FF] px-4 py-3 text-[16px] placeholder:text-[#35C7F9] outline-none overflow-y-auto"
+                  className="fl-textfield h-[280px] w-full resize-none rounded-[18px] bg-[#A5E8FF] px-4 py-3 text-[16px] placeholder:text-[#35C7F9] outline-none overflow-y-auto"
                 />
 
                 {submitError && (
@@ -276,7 +284,7 @@ export default function Home() {
                 <button
                   type="submit"
                   disabled={!isMessageValid || isSubmitting}
-                  className="mt-30 h-14 w-full max-w-[280px] rounded-[12px] bg-[#45BBFF] text-base font-semibold text-white shadow-[0_10px_24px_rgba(69,187,255,0.6)] disabled:cursor-not-allowed disabled:opacity-60"
+                  className="mt-24 hidden"
                 >
                   {isSubmitting ? "보내는 중..." : "편지 보내기"}
                 </button>
@@ -322,7 +330,7 @@ export default function Home() {
               </div>
 
               <button
-                className="mt-20 flex h-14 w-[280px] items-center justify-center gap-2 rounded-[12px] bg-[#45BBFF] text-base font-semibold text-white shadow-[0_10px_24px_rgba(69,187,255,0.4)]"
+                className="mt-8 flex h-14 w-[280px] items-center justify-center gap-2 rounded-[12px] bg-[#45BBFF] text-base font-semibold text-white shadow-[0_10px_24px_rgba(69,187,255,0.4)]"
                 onClick={() => {
                   setStep("landing");
                   setTitle("");
@@ -391,6 +399,22 @@ export default function Home() {
           </section>
         )}
       </div>
+
+      {/* 편지 작성 단계에서만 하단 플로팅 전송 버튼 (전송 애니메이션 중에는 숨김) */}
+      {step === "letter" && !isSendingAnim && (
+        <button
+          type="button"
+          disabled={!isMessageValid || isSubmitting}
+          onClick={() => {
+            if (letterFormRef.current) {
+              letterFormRef.current.requestSubmit();
+            }
+          }}
+          className="fixed bottom-[10%] left-1/2 z-20 h-14 w-[min(280px,90vw)] -translate-x-1/2 rounded-[12px] bg-[#45BBFF] text-base font-semibold text-white shadow-[0_10px_24px_rgba(69,187,255,0.6)] disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          {isSubmitting ? "보내는 중..." : "편지 보내기"}
+        </button>
+      )}
 
       {/* 봉투 배경 & 종이비행기: 편지 작성 화면에서만, 뷰포트 맨 하단에 고정 */}
       {step === "letter" && (

@@ -75,7 +75,7 @@ body {
 }
 
 .animate-rise-in {
-  animation: riseIn 0.8s ease-out forwards;
+  animation: riseIn 1s ease-out forwards;
 }
 
 .fl-textfield {
