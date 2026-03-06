@@ -54,8 +54,12 @@ export default function Home() {
                   style={{ animationDelay: "80ms" }}
                 >
                   <h1
-                    className="text-4xl font-semibold tracking-tight"
-                    style={{ textShadow: "0 2px 4px rgba(0,0,0,0.07)" }}
+                    className="text-[32px] font-semibold tracking-tight"
+                    style={{
+                      textShadow: "0 2px 4px rgba(0,0,0,0.07)",
+                      fontFamily:
+                        '"SeoulHangang CEB", var(--font-pretendard)',
+                    }}
                   >
                     미래로 보내는 편지
                   </h1>
@@ -155,7 +159,10 @@ export default function Home() {
             >
               <motion.p
                 className="text-center text-[24px] font-semibold leading-[1.4] text-[#F3FCFF]"
-                style={{ textShadow: "0 2px 4px rgba(0,0,0,0.07)" }}
+                style={{
+                  textShadow: "0 2px 4px rgba(0,0,0,0.07)",
+                  fontFamily: '"SeoulHangang CEB", var(--font-pretendard)',
+                }}
                 initial={false}
                 animate={
                   isSendingAnim
@@ -297,8 +304,11 @@ export default function Home() {
 
               <div className="flex flex-col items-center gap-1.5">
                 <h2
-                  className="text-[32px] font-semibold tracking-tight"
-                  style={{ textShadow: "0 2px 4px rgba(0,0,0,0.07)" }}
+                  className="text-[28px] font-semibold tracking-tight"
+                  style={{
+                    textShadow: "0 2px 4px rgba(0,0,0,0.07)",
+                    fontFamily: '"SeoulHangang CEB", var(--font-pretendard)',
+                  }}
                 >
                   편지가 가고있어요
                 </h2>
