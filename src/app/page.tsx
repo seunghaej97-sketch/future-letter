@@ -28,18 +28,18 @@ export default function Home() {
 
   return (
     <main
-      className={`flex min-h-screen w-full px-6 py-10 ${
+      className={`relative flex h-[100dvh] w-full px-6 justify-center ${
         step === "letter"
-          ? "items-end justify-center pb-72"
-          : "items-center justify-center"
+          ? "pt-8 pb-70 items-end"
+          : "pt-8 pb-10 items-center"
       }`}
     >
-      <div className="mx-auto flex w-full max-w-[960px] flex-col items-center justify-between gap-16">
+      <div className="mx-auto flex w-full max-w-[960px] flex-col items-center justify-between gap-12">
         {/* 1단계: 랜딩 화면 */}
         {step === "landing" && (
           <>
             <section className="flex w-full flex-1 flex-col items-center overflow-visible">
-              <div className="flex flex-col items-center gap-6 overflow-visible">
+              <div className="flex flex-col items-center gap-3 overflow-visible">
                 {/* 비행기 아이콘 */}
                 <div
                   className="relative h-[23px] w-[31px] animate-rise-in opacity-0"
@@ -273,7 +273,7 @@ export default function Home() {
                   value={message}
                   onChange={(event) => setMessage(event.target.value)}
                   placeholder="미래의 나에게 편지를 적어보세요."
-                  className="fl-textfield h-[280px] w-full resize-none rounded-[18px] bg-[#A5E8FF] px-4 py-3 text-[16px] placeholder:text-[#35C7F9] outline-none overflow-y-auto"
+                  className="fl-textfield h-[240px] w-full resize-none rounded-[18px] bg-[#A5E8FF] px-4 py-3 text-[16px] placeholder:text-[#35C7F9] outline-none overflow-y-auto"
                 />
 
                 {submitError && (
@@ -422,7 +422,7 @@ export default function Home() {
           className="pointer-events-none fixed bottom-0 left-1/2 -translate-x-1/2 z-[-10] flex items-end justify-center overflow-hidden"
           style={{
             width: "min(100vw, 425px)",
-            height: "100vh",
+            height: "100dvh",
           }}
         >
           <div className="relative flex h-full w-full items-end justify-center">
@@ -434,7 +434,7 @@ export default function Home() {
                   ? { y: 40, opacity: 0 }
                   : { y: 0, opacity: 1 }
               }
-              transition={{ duration: 0.8, ease: "easeInOut" }}
+              transition={{ duration: 1, ease: "easeInOut" }}
             >
               <img
                 src="/envelope.png"
@@ -450,7 +450,7 @@ export default function Home() {
                 src="/paperplane.png"
                 alt="종이비행기"
                 className="absolute bottom-[0%] left-1/2 w-[90%] max-w-[440px] h-auto -translate-x-1/2 object-contain"
-                initial={{ y: 0, opacity: 0, scale: 1 }}
+                initial={{ y: 60, opacity: 0, scale: 1 }}
                 animate={
                   isPlaneFlying
                     ? {
