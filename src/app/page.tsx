@@ -173,7 +173,7 @@ export default function Home() {
                 initial={false}
                 animate={
                   isSendingAnim
-                    ? { y: 8, opacity: 0 }
+                    ? { y: 20, opacity: 0 }
                     : { y: 0, opacity: 1 }
                 }
                 transition={{ duration: 1.2, ease: "easeOut" }}
@@ -215,20 +215,20 @@ export default function Home() {
                   setIsPlaneVisible(false);
                   setIsPlaneFlying(false);
 
-                  // 편지 폼 모션이 어느 정도 진행된 뒤, 봉투가 내려가며 페이드아웃 (0.8초)
+                  // 편지 폼 모션이 어느 정도 진행된 뒤, 봉투가 내려가며 페이드아웃 (1초)
                   setTimeout(() => {
                     setIsEnvelopeLeaving(true);
-                  }, 1800);
+                  }, 2200);
 
-                  // 봉투 모션이 끝난 뒤, 종이비행기가 아래에서 위로 나타남 (0.8초, fade in)
+                  // 봉투 모션이 끝난 뒤, 종이비행기가 아래에서 위로 나타남 (1초, fade in)
                   setTimeout(() => {
                     setIsPlaneVisible(true);
-                  }, 2800);
+                  }, 3200);
 
                   // 종이비행기가 잠깐 머물렀다가, 화면 위로 날아가는 모션 시작
                   setTimeout(() => {
                     setIsPlaneFlying(true);
-                  }, 3600);
+                  }, 4400);
 
                   // 종이비행기 모션까지 끝난 뒤에 done 화면으로 전환
                   setTimeout(() => {
@@ -237,7 +237,7 @@ export default function Home() {
                     setIsPlaneFlying(false);
                     setIsSubmitting(false);
                     setStep("done");
-                  }, 6000);
+                  }, 5900);
                 }}
                 initial={false}
                 animate={
@@ -246,9 +246,9 @@ export default function Home() {
                     : { y: 0, opacity: 1 }
                 }
                 transition={{
-                  duration: 2,
+                  duration: 2.2,
                   ease: "easeInOut",
-                  opacity: { duration: 1, ease: "easeOut" },
+                  opacity: { duration: 1.5, ease: "easeOut" },
                 }}
                 style={
                   isSendingAnim
@@ -467,7 +467,7 @@ export default function Home() {
                         ease: "easeIn",
                         times: [0, 0.25, 1],
                       }
-                    : { duration: 0.8, ease: "easeOut" }
+                    : { duration: 1, ease: "easeOut" }
                 }
               />
             )}
