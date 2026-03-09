@@ -218,17 +218,17 @@ export default function Home() {
                   // 편지 폼 모션이 어느 정도 진행된 뒤, 봉투가 내려가며 페이드아웃 (1초)
                   setTimeout(() => {
                     setIsEnvelopeLeaving(true);
-                  }, 2200);
+                  }, 1400);
 
                   // 봉투 모션이 끝난 뒤, 종이비행기가 아래에서 위로 나타남 (1초, fade in)
                   setTimeout(() => {
                     setIsPlaneVisible(true);
-                  }, 3200);
+                  }, 2400);
 
                   // 종이비행기가 잠깐 머물렀다가, 화면 위로 날아가는 모션 시작
                   setTimeout(() => {
                     setIsPlaneFlying(true);
-                  }, 4400);
+                  }, 3600);
 
                   // 종이비행기 모션까지 끝난 뒤에 done 화면으로 전환
                   setTimeout(() => {
@@ -237,7 +237,7 @@ export default function Home() {
                     setIsPlaneFlying(false);
                     setIsSubmitting(false);
                     setStep("done");
-                  }, 5900);
+                  }, 5100);
                 }}
                 initial={false}
                 animate={
@@ -434,7 +434,7 @@ export default function Home() {
                   ? { y: 40, opacity: 0 }
                   : { y: 0, opacity: 1 }
               }
-              transition={{ duration: 1, ease: "easeInOut" }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
             >
               <img
                 src="/envelope.png"
